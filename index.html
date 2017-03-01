@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Sliding Puzzle</title>
+    <style>
+    #puzzle {
+      width: 600px;
+      height: 600px;
+      background-color: #555;
+      border: 5px solid blue;
+      overflow: hidden;
+      position: relative;
+      z-index: 1;
+      background: repeating-linear-gradient(
+        45deg,
+        #333,
+        #333 5px,
+        #444 5px,
+        #444 10px
+      );
+    }
+
+    .tile {
+      width: 199px;
+      height: 199px;
+      border: 1px solid black;
+      background-image: url(http://www.lovethispic.com/uploaded_images/123553-Beautiful-Scene.jpg);
+      background-size: 600px 600px;
+      transition: all 300ms;
+      position: absolute;
+    }
+
+    /* The left and right shadow */
+    .tile:before {
+      position: absolute;
+      content: '';
+      left: -20px;
+      right: -20px;
+      top: 0;
+      bottom: 0;
+        background: linear-gradient(90deg, transparent 220px, #111 220px, transparent 240px ),
+      linear-gradient(-90deg, transparent 220px, #111 220px, transparent 240px );
+      z-index: -1;
+    }
+
+    /* The top and bottom shadow */
+    .tile:after {
+      position: absolute;
+      content: '';
+      top: -20px;
+      bottom: -20px;
+      left: 0;
+      right: 0;
+        background: linear-gradient(0deg, transparent 220px, #111 220px, transparent 240px ),
+      linear-gradient(180deg, transparent 220px, #111 220px, transparent 240px );
+      z-index: -1;
+    }
+
+    </style>
+  </head>
+  <body>
+    <div id="puzzle">
+      <div class="row">
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+      </div>
+      <div class="row">
+        <div class="tile"></div>
+        <div class="tile"></div>
+        <div class="tile"></div>
+      </div>
+      <div class="row">
+        <div class="tile"></div>
+        <div class="tile"></div>
+      </div>
+    </div>
+    <script>
+
+// This is the location of the empty square. At the start it's at 2, 2
+var emptyRow = 2;
+var emptyCol = 2;
+
+// i and j, as passed in, are the tiles' original coordinates
+var makeMoveHandler = function (tile, i, j) {
+  // row and col, as made here in closure, are the tiles up-to-date coordinates
+  var row = i;
+  var col = j;
+
+  // The click handler
+  return function () {
+    var rowOffset = Math.abs(emptyRow - row);
+    var colOffset = Math.abs(emptyCol - col);
+
+    // Move the tile to the vacant place next to it
+    if (rowOffset == 1 && colOffset == 0 || rowOffset == 0 && colOffset == 1) {
+      tile.style.marginLeft = emptyCol * 200 + 'px';
+      tile.style.marginTop = emptyRow * 200 + 'px';
+      // Swap the two coordinates
+      [row, emptyRow] = [emptyRow, row];
+      [col, emptyCol] = [emptyCol, col];
+    }
+  }
+};
+
+var shuffle = function () {
+  var rows = document.querySelectorAll('.row');
+  for (let i = 0; i < 85; ++i) {
+    // Click that tile, and hope it's moveable
+    var row = ~~(Math.random() * rows.length);
+    var tiles = rows.item(row).querySelectorAll('.tile');
+    var tile = ~~(Math.random() * tiles.length);
+    console.log(tiles, row, tile);
+    tiles.item(tile).click();
+  }
+};
+
+var initTiles = function () {
+  // Get all of the rows
+  var rows = document.querySelectorAll('.row');
+
+  // Go through the rows
+  for (let i = 0; i < rows.length; ++i) {
+    var row = rows.item(i);
+
+    // Go through the tiles on each row
+    var tiles = row.querySelectorAll('.tile');
+    for (let j = 0; j < tiles.length; ++j) {
+      var tile = tiles.item(j);
+
+      // Add the click listener to the tile
+      tile.addEventListener('click', makeMoveHandler(tile, i, j));
+
+      // Set the location of the tile
+      tile.style.marginLeft = j * 200 + 'px';
+      tile.style.marginTop = i * 200 + 'px';
+
+      // Set what part of the background to show on the tile
+      tile.style.backgroundPosition = `${600 - j * 200}px ${600 - i * 200}px`;
+    }
+  }
+};
+
+// Initialize the tiles
+initTiles();
+shuffle();
+    </script>
+  </body>
+</html>
