@@ -2,7 +2,7 @@
 ================
 
 <div style="text-align: center;">
-  <img src="https://github.com/abejfehr/slidingpuzzle/raw/gh-pages/screenshot.jpg">
+  <img src="https://github.com/abejfehr/slidingpuzzle/raw/gh-pages/screenshot.png">
 </div>
 
 This is a simple sliding puzzle made using HTML/CSS/JS.
