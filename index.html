@@ -3,12 +3,46 @@
   <head>
     <meta charset="utf-8">
     <title>Sliding Puzzle</title>
+    <link href="https://fonts.googleapis.com/css?family=Annie+Use+Your+Telescope" rel="stylesheet">
     <style>
+    body {
+      background-image: url(https://s-media-cache-ak0.pinimg.com/originals/e2/30/f5/e230f59a5922574a0731061323b3a41d.jpg);
+      background-position: center center;
+      background-size: cover;
+    }
+
+    h1 {
+      background-color: rgba(84, 57, 21, 0.8);
+      color: transparent;
+      text-shadow: 0.5px 0.4px 0.2px rgba(255, 255, 255, 0.2);
+      -webkit-background-clip: text;
+         -moz-background-clip: text;
+              background-clip: text;
+      margin: 3px auto;
+      text-align: center;
+      font-size: 65px;
+      font-family: 'Annie Use Your Telescope', cursive;
+    }
+
+    .bevelBox {
+      width: 600px;
+      padding: 10px;
+      height: 600px;
+      margin: 0 auto;
+      background-image: url(https://us.123rf.com/450wm/Rouslan/Rouslan1509/Rouslan150900231/44838500-wood-texture-background.jpg?ver=6);
+      background-position: center center;
+      background-size: cover;
+      border: 1px solid #000000;
+      -moz-box-shadow: inset 2px 2px 2px rgba(255, 255, 255, .4), inset -2px -2px 2px rgba(0, 0, 0, .4);
+      -webkit-box-shadow: inset 2px 2px 2px rgba(255, 255, 255, .4), inset -2px -2px 2px rgba(0, 0, 0, .4);
+      box-shadow: inset 2px 2px 2px rgba(255, 255, 255, .4), inset -2px -2px 2px rgba(0, 0, 0, .4);
+      box-shadow: 3px 3px 10px black, -2px -2px 10px black;
+    }
+
     #puzzle {
       width: 600px;
       height: 600px;
       background-color: #555;
-      border: 5px solid blue;
       overflow: hidden;
       position: relative;
       z-index: 1;
@@ -19,6 +53,9 @@
         #444 5px,
         #444 10px
       );
+      -moz-box-shadow: 2px 2px 2px rgba(255, 255, 255, .4), -2px -2px 2px rgba(0, 0, 0, .4);
+      -webkit-box-shadow: 2px 2px 2px rgba(255, 255, 255, .4), -2px -2px 2px rgba(0, 0, 0, .4);
+      box-shadow: 2px 2px 2px rgba(255, 255, 255, .4), -2px -2px 2px rgba(0, 0, 0, .4);
     }
 
     .tile {
@@ -39,8 +76,8 @@
       right: -20px;
       top: 0;
       bottom: 0;
-        background: linear-gradient(90deg, transparent 220px, #111 220px, transparent 240px ),
-      linear-gradient(-90deg, transparent 220px, #111 220px, transparent 240px );
+        background: linear-gradient(90deg, transparent 210px, #111 210px, transparent 230px ),
+      linear-gradient(-90deg, transparent 210px, #111 210px, transparent 230px );
       z-index: -1;
     }
 
@@ -52,28 +89,31 @@
       bottom: -20px;
       left: 0;
       right: 0;
-        background: linear-gradient(0deg, transparent 220px, #111 220px, transparent 240px ),
-      linear-gradient(180deg, transparent 220px, #111 220px, transparent 240px );
+        background: linear-gradient(0deg, transparent 210px, #111 210px, transparent 230px ),
+      linear-gradient(180deg, transparent 210px, #111 210px, transparent 230px );
       z-index: -1;
     }
 
     </style>
   </head>
   <body>
-    <div id="puzzle">
-      <div class="row">
-        <div class="tile"></div>
-        <div class="tile"></div>
-        <div class="tile"></div>
-      </div>
-      <div class="row">
-        <div class="tile"></div>
-        <div class="tile"></div>
-        <div class="tile"></div>
-      </div>
-      <div class="row">
-        <div class="tile"></div>
-        <div class="tile"></div>
+    <h1>Sliding Puzzle</h1>
+    <div class="bevelBox">
+      <div id="puzzle">
+        <div class="row">
+          <div class="tile"></div>
+          <div class="tile"></div>
+          <div class="tile"></div>
+        </div>
+        <div class="row">
+          <div class="tile"></div>
+          <div class="tile"></div>
+          <div class="tile"></div>
+        </div>
+        <div class="row">
+          <div class="tile"></div>
+          <div class="tile"></div>
+        </div>
       </div>
     </div>
     <script>
@@ -111,7 +151,6 @@ var shuffle = function () {
     var row = ~~(Math.random() * rows.length);
     var tiles = rows.item(row).querySelectorAll('.tile');
     var tile = ~~(Math.random() * tiles.length);
-    console.log(tiles, row, tile);
     tiles.item(tile).click();
   }
 };
